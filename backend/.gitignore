@@ -1,0 +1,32 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+.idea/
+.vscode/
+*.sublime-workspace
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# dotenv environment variables file
+.env
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Build files
+build/
+dist/
