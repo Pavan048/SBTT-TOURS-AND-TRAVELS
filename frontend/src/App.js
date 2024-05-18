@@ -1,6 +1,7 @@
 
 import React from 'react';
 import "./assets/css/style.css";
+import Header from './components/Header/Header.jsx';
 import Hero from './components/Hero/Hero.jsx';
 import TourSearch from './components/TourSearch/TourSearch.jsx';
 import PopularDestinations from "./components/PopularDestinations/PopularDestinations.jsx";
@@ -13,6 +14,8 @@ import PackageSection from './components/Packages/Packages.jsx';
 function App() {
   return(
     <>
+    {/* Header */}
+    <Header/>
     <article>
     {/* Hero */}
     <Hero/>
