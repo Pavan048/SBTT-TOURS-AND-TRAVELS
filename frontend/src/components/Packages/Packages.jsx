@@ -4,6 +4,7 @@ import Package1 from "../../assets/images/packege-1.jpg";
 import Package2 from "../../assets/images/packege-2.jpg";
 import Package3 from "../../assets/images/packege-3.jpg";
 import { FaClock, FaUsers, FaMapMarkerAlt, FaStar } from 'react-icons/fa';
+import axios from 'axios'; // Import axios
 
 const packages = [
   {
@@ -44,7 +45,7 @@ const packages = [
   }
 ];
 
-const PackageCard = ({ pkg }) => (
+const PackageCard = ({ pkg, checkoutHandler }) => (
   <li>
     <div className="package-card">
       <figure className="card-banner">
@@ -84,16 +85,49 @@ const PackageCard = ({ pkg }) => (
           </div>
         </div>
         <p className="price">
-          ${pkg.price}
+          Rs {pkg.price}
           <span>/ per person</span>
         </p>
-        <button className="btn btn-secondary">Book Now</button>
+        <button className="btn btn-secondary" onClick={() => checkoutHandler(pkg.price)}>Book Now</button>
       </div>
     </div>
   </li>
 );
 
 const PackageSection = () => {
+  const checkoutHandler = async (amount) => {
+    try {
+      const { data: { key } } = await axios.get("http://localhost:4000/api/getkey");
+      const { data: { order } } = await axios.post("http://localhost:4000/api/checkout", { amount });
+
+      const options = {
+        key,
+        amount: order.amount,
+        currency: "INR",
+        name: "SBTT",
+        description: "SWARNABHOOMI TOURS AND TRAVELS",
+        image: "https://avatars.githubusercontent.com/u/25058652?v=4",
+        order_id: order.id,
+        callback_url: "http://localhost:4000/api/paymentverification",
+        prefill: {
+          name: "Gaurav Kumar",
+          email: "gaurav.kumar@example.com",
+          contact: "9999999999"
+        },
+        notes: {
+          "address": "Razorpay Corporate Office"
+        },
+        theme: {
+          "color": "#121212"
+        }
+      };
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (error) {
+      console.error("Error during checkout: ", error);
+    }
+  };
+
   return (
     <section className="package" id="package">
       <div className="container">
@@ -104,13 +138,13 @@ const PackageSection = () => {
         </p>
         <ul className="package-list">
           {packages.map(pkg => (
-            <PackageCard key={pkg.id} pkg={pkg} />
+            <PackageCard key={pkg.id} pkg={pkg} checkoutHandler={checkoutHandler} />
           ))}
         </ul>
         <button className="btn btn-primary">View All Packages</button>
       </div>
     </section>
   );
-}
+};
 
 export default PackageSection;
