@@ -1,0 +1,38 @@
+.subhero {
+    position: relative;
+    height: 50vh; /* Adjust height as needed */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Adjust opacity for darkness */
+  }
+  
+  .subhero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+  }
+  
+  .subhero-heading {
+    font-size: 2em;
+    margin-bottom: 10px;
+  }
+  
+  .subhero-subheading {
+    font-size: 1em;
+    margin-bottom: 0;
+    opacity: 0.8; /* Adjust opacity for subtleness */
+  }
+  

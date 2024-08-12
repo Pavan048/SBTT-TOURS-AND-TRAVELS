@@ -1,7 +1,9 @@
 import React from 'react';
 import "../../assets/css/style.css";
+import {useNavigate} from "react-router-dom";
 
 const CTA = () => {
+  const navigate = useNavigate();
   return (
     <section className="cta" id="contact">
       <div className="container">
@@ -16,7 +18,7 @@ const CTA = () => {
           </p>
         </div>
 
-        <button className="btn btn-secondary">Contact Us!</button>
+        <button className="btn btn-secondary"  onClick={() => { navigate('/contact')}}>Contact Us!</button>
 
       </div>
     </section>

@@ -61,10 +61,59 @@ const deleteTour = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, data: {} });
 });
 
+
+const getAllPackages = asyncHandler(async (req, res) => {
+  const packageTours = await Tour.find({ packageTour: true });
+  if (!packageTours || packageTours.length === 0) {
+    return res.status(404).json({ success: false, error: 'No packages are available' });
+  }
+  res.json({
+    success: true,
+    data: packageTours,
+  });
+});
+
+
+const searchTours = asyncHandler(async (req, res) => {
+  const { destination, numberOfPeople, checkinDate, checkoutDate } = req.query;
+
+  const query = {};
+
+  if (destination) {
+    query.name = { $regex: destination, $options: 'i' }; // Case-insensitive search
+  }
+
+  if (numberOfPeople) {
+    query.maxGroupSize = { $gte: parseInt(numberOfPeople, 10) };
+  }
+
+  if (checkinDate && checkoutDate) {
+    query.startDate = { $lte: new Date(checkoutDate) }; // Check if tour starts before or on the checkout date
+    query.endDate = { $gte: new Date(checkinDate) }; // Check if tour ends after or on the checkin date
+  }
+
+  const tours = await Tour.find(query);
+
+  if (!tours || tours.length === 0) {
+    return res.status(404).json({ success: false, error: 'No tours found matching the criteria' });
+  }
+
+  res.json({
+    success: true,
+    data: tours,
+  });
+});
+
+
+
+
+
 module.exports = {
   getAllTours,
   createTour,
   updateTour,
   deleteTour,
   getSingleTour,
+  getAllPackages,
+  searchTours,
 };

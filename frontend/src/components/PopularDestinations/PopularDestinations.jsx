@@ -1,10 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa'; // Importing the star icon from react-icons/fa
 import popular1 from "../../assets/images/popular-1.jpg";
 import popular2 from "../../assets/images/popular-2.jpg";
 import popular3 from "../../assets/images/popular-3.jpg";
 
 const PopularDestinations = () => {
+  const navigate = useNavigate();
+  const handleDestinationsClick = () => {
+    navigate('/tours');
+  }
   return (
     <section className="popular" id="destination">
       <div className="container">
@@ -28,10 +33,10 @@ const PopularDestinations = () => {
                   <FaStar />
                 </div>
                 <p className="card-subtitle">
-                  <a href="#">Italy</a>
+                  <a href="/">Italy</a>
                 </p>
                 <h3 className="h3 card-title">
-                  <a href="#">San miguel</a>
+                  <a href="/">San miguel</a>
                 </h3>
                 <p className="card-text">
                   Fusce hic augue velit wisi ips quibusdam pariatur, iusto.
@@ -53,10 +58,10 @@ const PopularDestinations = () => {
                   <FaStar />
                 </div>
                 <p className="card-subtitle">
-                  <a href="#">Dubai</a>
+                  <a href="/">Dubai</a>
                 </p>
                 <h3 className="h3 card-title">
-                  <a href="#">Burj khalifa</a>
+                  <a href="/">Burj khalifa</a>
                 </h3>
                 <p className="card-text">
                   Fusce hic augue velit wisi ips quibusdam pariatur, iusto.
@@ -78,10 +83,10 @@ const PopularDestinations = () => {
                   <FaStar />
                 </div>
                 <p className="card-subtitle">
-                  <a href="#">Japan</a>
+                  <a href="/">Japan</a>
                 </p>
                 <h3 className="h3 card-title">
-                  <a href="#">Kyoto temple</a>
+                  <a href="/">Kyoto temple</a>
                 </h3>
                 <p className="card-text">
                   Fusce hic augue velit wisi ips quibusdam pariatur, iusto.
@@ -90,7 +95,7 @@ const PopularDestinations = () => {
             </div>
           </li>
         </ul>
-        <button className="btn btn-primary">More destinations</button>
+        <button className="btn btn-primary" onClick={handleDestinationsClick}>More destinations</button>
       </div>
     </section>
   );

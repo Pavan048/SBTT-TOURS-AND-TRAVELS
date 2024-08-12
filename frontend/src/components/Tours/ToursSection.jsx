@@ -4,8 +4,8 @@ import { FaDollarSign, FaCalendarAlt, FaUsers } from 'react-icons/fa';
 import "../../assets/css/Tours.css";
 import { Link } from 'react-router-dom';
 
-const PackageSection = () => {
-  const { data, error, loading } = useFetch('http://localhost:4000/api/tours/packages');
+const TourSection = () => {
+  const { data, error, loading } = useFetch('http://localhost:4000/api/tours/');
   console.log(data);
 
   if (loading) {
@@ -42,4 +42,4 @@ const PackageSection = () => {
   );
 };
 
-export default PackageSection;
+export default TourSection;

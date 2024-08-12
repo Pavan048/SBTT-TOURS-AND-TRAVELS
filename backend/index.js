@@ -4,7 +4,7 @@ const dotenv = require('dotenv'); // No need to call .config()
 const errorHandler = require("./middleware/errorHandler");
 const connectDb = require("./config/dbConnnection.js");
 
-dotenv.config(); // Load environment variables
+dotenv.config(); // Load environment variabless
 
 connectDb();
 const app = express();
@@ -22,6 +22,8 @@ app.use(errorHandler); // Error handling middleware should be placed after all o
 app.get('/', (req, res) => {
     res.send("SBTT TOURS AND TRAVELS");
 });
+
+
 
 app.get("/api/getkey", (req, res) =>
     res.status(200).json({ key: process.env.RAZORPAY_API_KEY })
