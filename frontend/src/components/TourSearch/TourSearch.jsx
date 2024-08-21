@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import useFetch from '../../Hooks/useFetch'; // Adjust the import path according to your project structure
-import { FaDollarSign, FaCalendarAlt, FaUsers } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import "../../assets/css/Tours.css";
+
 const TourSearch = () => {
   const [formData, setFormData] = useState({
     destination: '',
@@ -9,9 +9,8 @@ const TourSearch = () => {
     checkin: '',
     checkout: '',
   });
-  const [url, setUrl] = useState('');
 
-  const { data, loading, error } = useFetch(url);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +23,11 @@ const TourSearch = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!formData.destination || !formData.people || !formData.checkin || !formData.checkout) {
+      alert("Please fill out all fields.");
+      return;
+    }
+
     const queryParams = new URLSearchParams();
     if (formData.destination) queryParams.append('destination', formData.destination);
     if (formData.people) queryParams.append('numberOfPeople', formData.people);
@@ -31,7 +35,7 @@ const TourSearch = () => {
     if (formData.checkout) queryParams.append('checkoutDate', formData.checkout);
 
     const queryString = queryParams.toString();
-    setUrl(`http://localhost:4000/api/tours/search?${queryString}`);
+    navigate(`/tours/search?${queryString}`);
   };
 
   return (
@@ -90,30 +94,6 @@ const TourSearch = () => {
 
           <button type="submit" className="btn btn-secondary">Inquire now</button>
         </form>
-
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {data && data.success && data.data ? (
-        <div className='tour__container'>
-          {data.data.map((tour) => (
-            <div key={tour._id} className="tour">
-              <div className='tour__thumbnail'>
-                <img src={tour.image} alt={tour.name} />
-              </div>
-              <div className="tour__details">
-                <h2>{tour.name}</h2>
-                <p className="fare"><FaDollarSign /> Fare: {tour.fare}</p>
-                <p className="startDate"><FaCalendarAlt /> Start Date: {new Date(tour.startDate).toDateString()}</p>
-                <p className="endDate"><FaCalendarAlt /> End Date: {new Date(tour.endDate).toDateString()}</p>
-                <p><FaUsers /> Max Group Size: {tour.maxGroupSize}</p>
-                <button>View Details</button>
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div></div>
-      )}
       </div>
     </section>
   );

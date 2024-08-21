@@ -1,4 +1,5 @@
 import Layout from "./components/Layout/Layout.jsx";
+// import AddTour from "./Scrap/AddTour";
 
 
 

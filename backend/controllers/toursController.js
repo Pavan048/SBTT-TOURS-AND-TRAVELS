@@ -74,35 +74,53 @@ const getAllPackages = asyncHandler(async (req, res) => {
 });
 
 
+
 const searchTours = asyncHandler(async (req, res) => {
   const { destination, numberOfPeople, checkinDate, checkoutDate } = req.query;
 
   const query = {};
 
+  // Search by destination name
   if (destination) {
     query.name = { $regex: destination, $options: 'i' }; // Case-insensitive search
   }
 
+  // Filter by maximum group size
   if (numberOfPeople) {
-    query.maxGroupSize = { $gte: parseInt(numberOfPeople, 10) };
+    const numberOfPeopleInt = parseInt(numberOfPeople, 10);
+    if (isNaN(numberOfPeopleInt)) {
+      return res.status(400).json({ success: false, error: 'Invalid number of people' });
+    }
+    query.maxGroupSize = { $gte: numberOfPeopleInt };
   }
 
+  // Filter by dates
   if (checkinDate && checkoutDate) {
-    query.startDate = { $lte: new Date(checkoutDate) }; // Check if tour starts before or on the checkout date
-    query.endDate = { $gte: new Date(checkinDate) }; // Check if tour ends after or on the checkin date
+    const checkin = new Date(checkinDate);
+    const checkout = new Date(checkoutDate);
+    
+    // Check if dates are valid
+    if (isNaN(checkin.getTime()) || isNaN(checkout.getTime())) {
+      return res.status(400).json({ success: false, error: 'Invalid date format' });
+    }
+
+    query.startDate = { $lte: checkout };
+    query.endDate = { $gte: checkin };
   }
 
-  const tours = await Tour.find(query);
-
-  if (!tours || tours.length === 0) {
-    return res.status(404).json({ success: false, error: 'No tours found matching the criteria' });
+  try {
+    const tours = await Tour.find(query);
+    if (tours.length === 0) {
+      return res.status(404).json({ success: false, error: 'No tours found matching the criteria' });
+    }
+    res.json({ success: true, data: tours });
+  } catch (error) {
+    res.status(500).json({ success: false, error: 'Server error' });
   }
-
-  res.json({
-    success: true,
-    data: tours,
-  });
 });
+
+
+
 
 
 

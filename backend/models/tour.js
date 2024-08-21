@@ -11,7 +11,7 @@ const tourSchema = new mongoose.Schema({
   image: { type: String, required: true },
   maxGroupSize: { type: Number, required: true },
   packageTour: { type: Boolean, required: true },
-  fare: { type: String, required: true },
+  fare: { type: Number, required: true },
   reviews: { type: String, required: true },
   ratings: { type: String, required: true },
   location: { type: String, required: true },

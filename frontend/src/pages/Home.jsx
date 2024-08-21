@@ -6,7 +6,7 @@ import TourSearch from '../components/TourSearch/TourSearch.jsx';
 import PopularDestinations from "../components/PopularDestinations/PopularDestinations.jsx";
 import CTA from "../components/CTA/Cta.jsx";
 import Gallery from "../components/Gallery/Gallery.jsx";
-// import PackageSection from '../components/Packages/Packages.jsx';
+import PackageSection from '../components/Packages/Packages.jsx';
 
 
 function Home() {
@@ -21,7 +21,7 @@ function Home() {
     {/* popular destinations */}
     <PopularDestinations/>
     {/* packages */}
-    {/* <PackageSection/> */}
+    <PackageSection/>
     {/* gallary */}
     <Gallery/>
       {/* cta */}
