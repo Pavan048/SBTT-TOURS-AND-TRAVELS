@@ -5,7 +5,7 @@ import PackageCard from './PackageCard';
 import ViewAllButton from './ViewAllButton';
 
 const PackageSection = () => {
-  const { data, error, loading } = useFetch('http://localhost:4000/api/tours/packages');
+  const { data, error, loading } = useFetch('https://sbtt-tours-and-travels.onrender.com/api/tours/packages');
 
   if (loading) {
     return <div>Loading...</div>;

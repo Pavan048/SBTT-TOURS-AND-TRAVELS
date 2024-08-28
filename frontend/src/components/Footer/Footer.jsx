@@ -13,7 +13,7 @@ const Footer = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:4000/api/newsletters', { email });
+      const response = await axios.post('https://sbtt-tours-and-travels.onrender.com/api/newsletters', { email });
 
       if (response.data.success) {
         setMessage('Subscription successful!');

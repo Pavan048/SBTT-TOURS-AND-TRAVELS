@@ -59,7 +59,7 @@ const Contact = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post('http://localhost:4000/api/contacts/', formData);
+        const response = await axios.post('https://sbtt-tours-and-travels.onrender.com/api/contacts/', formData);
         console.log(response);
         if (response.status === 201) {
           alert('Information received, we will communicate shortly.');

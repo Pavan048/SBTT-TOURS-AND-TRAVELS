@@ -5,7 +5,7 @@ import "../../assets/css/Tours.css";
 import { Link } from 'react-router-dom';
 
 const TourSection = () => {
-  const { data, error, loading } = useFetch('http://localhost:4000/api/tours/');
+  const { data, error, loading } = useFetch('https://sbtt-tours-and-travels.onrender.com/api/tours/');
   console.log(data);
 
   if (loading) {

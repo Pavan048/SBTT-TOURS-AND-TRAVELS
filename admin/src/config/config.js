@@ -1,0 +1,1 @@
+export const getAllTours = "http://localhost:4000/api/tours/";

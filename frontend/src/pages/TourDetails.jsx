@@ -7,7 +7,7 @@ import { FaCalendarAlt, FaMoneyBillAlt, FaUserFriends, FaRegListAlt, FaCheck, Fa
 
 const TourDetails = () => {
   const { id } = useParams();  // Tour ID from URL
-  const { data, error, loading } = useFetch(`http://localhost:4000/api/tours/${id}`);
+  const { data, error, loading } = useFetch(`https://sbtt-tours-and-travels.onrender.com/api/tours/${id}`);
   const [numPeople, setNumPeople] = useState(1); // Default number of people is 1
   const [userDetails, setUserDetails] = useState({
     name: '',
@@ -59,8 +59,8 @@ const TourDetails = () => {
     if (!validateForm()) return;
   
     try {
-      const { data: { key } } = await axios.get("http://localhost:4000/api/getkey");
-      const { data: { order } } = await axios.post("http://localhost:4000/api/checkout", {
+      const { data: { key } } = await axios.get("https://sbtt-tours-and-travels.onrender.com/api/getkey");
+      const { data: { order } } = await axios.post("https://sbtt-tours-and-travels.onrender.com/api/checkout", {
         amount,
         payment_capture: 1,
         tourId: id,
@@ -71,7 +71,7 @@ const TourDetails = () => {
       });
   
       // Construct the callback URL with query parameters
-      const callbackUrl = `http://localhost:4000/api/paymentverification?tourId=${id}&numberOfPeople=${numPeople}&amount=${amount}&name=${encodeURIComponent(userDetails.name)}&email=${encodeURIComponent(userDetails.email)}&contact=${userDetails.contact}`;
+      const callbackUrl = `https://sbtt-tours-and-travels.onrender.com/api/paymentverification?tourId=${id}&numberOfPeople=${numPeople}&amount=${amount}&name=${encodeURIComponent(userDetails.name)}&email=${encodeURIComponent(userDetails.email)}&contact=${userDetails.contact}`;
   
       const options = {
         key,

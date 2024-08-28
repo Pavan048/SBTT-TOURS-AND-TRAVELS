@@ -12,7 +12,7 @@ const SearchResult = () => {
   const checkinDate = queryParams.get('checkinDate');
   const checkoutDate = queryParams.get('checkoutDate');
 
-  const url = `http://localhost:4000/api/tours/search?destination=${destination}&numberOfPeople=${numberOfPeople}&checkinDate=${checkinDate}&checkoutDate=${checkoutDate}`;
+  const url = `https://sbtt-tours-and-travels.onrender.com/api/tours/search?destination=${destination}&numberOfPeople=${numberOfPeople}&checkinDate=${checkinDate}&checkoutDate=${checkoutDate}`;
 
   const { data, loading, error } = useFetch(url);
 
